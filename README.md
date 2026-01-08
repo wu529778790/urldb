@@ -1,166 +1,199 @@
-# 🚀 urlDB - 老九网盘资源数据库
+# urlDB - 网盘资源管理系统
 
-<div align="center">
+一个全栈网盘资源管理系统，支持多个云存储平台的资源管理、自动验证和批量转存操作。
 
-![Go Version](https://img.shields.io/badge/Go-1230?logo=go&logoColor=white)
-![Vue Version](https://img.shields.io/badge/Vue-334FC08D?logo=vue.js&logoColor=white)
-![Nuxt Version](https://img.shields.io/badge/Nuxt-300.8+-00DC82?logo=nuxt.js&logoColor=white)
-![License](https://img.shields.io/badge/License-GPL%20v3-blue.svg)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15+-336791go=postgresql&logoColor=white)
+## 技术栈
 
-**一个现代化的网盘资源数据库，支持多网盘自动化转存分享，支持百度网盘，阿里云盘，夸克网盘， 天翼云盘，迅雷云盘，123云盘，115网盘，UC网盘 **
+**后端：** Go 1.23+、Gin Web 框架、GORM ORM、SQLite、JWT 认证、robfig/cron 定时任务
 
-🌐 [在线演示](https://pan.l9.lc) | 📖 [文档](https://ecn5khs4t956.feishu.cn/wiki/PsnDwtxghiP0mLkTiruczKtxnwd?from=from_copylink) | 🐛 [问题反馈](https://github.com/ctwj/urldb/issues) | ⭐ [给个星标](https://github.com/ctwj/urldb)
+**前端：** Nuxt.js 3、Vue 3、TypeScript、Tailwind CSS、Pinia 状态管理、Naive UI 组件库
 
-### 支持的网盘平台
+**基础设施：** Docker、Docker Compose、Nginx 反向代理
+
+## 支持的网盘平台
 
 | 平台 | 录入 | 转存 | 分享 |
 |------|-------|-----|------|
-| 百度网盘 | ✅ 支持 | 🚧 开发中 | 🚧 开发中 |
-| 阿里云盘 | ✅ 支持 | 🚧 开发中 | 🚧 开发中 |
-| 夸克网盘 | ✅ 支持 | ✅ 支持 | ✅ 支持 |
-| 天翼云盘 | ✅ 支持 | 🚧 开发中 | 🚧 开发中 |
-| 迅雷云盘 | ✅ 支持 | ✅ 支持 | ✅ 支持 |
-| UC网盘 | ✅ 支持 | 🚧 开发中 | 🚧 开发中 |
-| 123云盘 | ✅ 支持 | 🚧 开发中 | 🚧 开发中 |
-| 115网盘 | ✅ 支持 | 🚧 开发中 | 🚧 开发中 |
+| 百度网盘 | ✅ | ❌ | ❌ |
+| 阿里云盘 | ✅ | ❌ | ❌ |
+| 夸克网盘 | ✅ | ✅ | ✅ |
+| 天翼云盘 | ✅ | ❌ | ❌ |
+| 迅雷云盘 | ✅ | ✅ | ✅ |
+| 123云盘 | ✅ | ❌ | ❌ |
+| 115网盘 | ✅ | ❌ | ❌ |
+| UC网盘 | ✅ | ❌ | ❌ |
 
-</div>
+## 核心功能
 
----
+- **资源管理** - 支持批量添加、验证资源有效性
+- **自动转存** - 支持夸克网盘、迅雷云盘的自动转存和分享
+- **多账号管理** - 同平台支持多账号轮换使用
+- **任务系统** - 异步任务处理，支持暂停/继续/重试
+- **定时任务** - 自动处理待验证资源
+- **API 支持** - 公开 API 用于批量操作和搜索
 
-## 🔔 版本改动
+## 快速开始
 
-- [文档说明](https://ecn5khs4t956.feishu.cn/wiki/PsnDwtxghiP0mLkTiruczKtxnwd?from=from_copylink)
-- [服务器要求](https://ecn5khs4t956.feishu.cn/wiki/W8YBww1Mmiu4Cdkp5W4c8pFNnMf?from=from_copylink) 
-- [QQ机器人](https://github.com/ctwj/astrbot_plugin_urldb) 
-- [Telegram机器人](https://ecn5khs4t956.feishu.cn/wiki/SwkQw6AzRiFes7kxJXac3pd2ncb?from=from_copylink)
+### 环境要求
 
-### v1.3.0
-1. 新增 [Telegram Bot](https://ecn5khs4t956.feishu.cn/wiki/SwkQw6AzRiFes7kxJXac3pd2ncb?from=from_copylink)
-2. 新增[扩容](https://ecn5khs4t956.feishu.cn/wiki/R3cPwEU6viTWfukHFNycM7O6nMd?from=from_copylink)
-3. 支持迅雷云盘
-4. UI优化
+- Go 1.23+
+- Node.js 18+
+- Docker & Docker Compose (可选)
 
-[详细改动记录](https://github.com/ctwj/urldb/blob/main/ChangeLog.md) 
+### 开发环境运行
 
-当前特性
-1. 支持API，手动批量录入资源
-2. 支持，自动判断资源有效性
-3. 支持自动转存
-4. 支持平台多账号管理
-5. 支持简单的数据统计
-6. 支持Meilisearch
+**后端：**
+```bash
+# 运行开发服务器
+go run main.go
 
+# 运行测试
+go test ./...
 
----
+# 格式化代码
+gofmt -w .
+```
 
-## 📸 项目截图
+**前端：**
+```bash
+cd web
+pnpm install
+pnpm dev      # 开发服务器
+pnpm build    # 生产构建
+```
 
+### Docker 部署
 
-### 🏠 首页
-![首页](https://raw.githubusercontent.com/ctwj/urldb/refs/heads/main/github/index.webp)
+```bash
+# 使用脚本构建
+./scripts/docker-build.sh build 1.3.0
 
-### 🔧 后台管理
-![后台管理](https://raw.githubusercontent.com/ctwj/urldb/refs/heads/main/github/admin.webp)
+# 使用 compose 运行
+docker-compose up -d
+```
 
-### ⚙️ 系统配置
-![系统配置](https://raw.githubusercontent.com/ctwj/urldb/refs/heads/main/github/config.webp)
+## 配置
 
-### 🔍 批量转存
-![资源搜索](https://raw.githubusercontent.com/ctwj/urldb/refs/heads/main/github/save.webp)
-
-### 👤 多账号管理
-![账号管理](https://raw.githubusercontent.com/ctwj/urldb/refs/heads/main/github/account.webp)
-
----
-
-## ✨ 功能特性
-
-### 🎯 核心功能
-- **📁 多平台网盘支持** - 支持夸克网盘、阿里云盘、百度网盘、UC网盘
-- **🔍 公开API** - 支持API数据录入，资源搜索
-- **🏷️ 自动预处理** - 系统自动处理资源， 对数据进行有效性判断
-- **📊 自动转存分享** - 有效资源，如果属于支持类型将自动转存分享
-- **📱 多账号管理** - 同平台支持多账号管理
-
-## 🏗️ 技术架构
-
-### 后端技术栈
-- **🦀 Golang 10.23+** - 高性能后端语言
-- **🌿 Gin** - 轻量级Web框架
-- **🗄️ PostgreSQL** - 关系型数据库
-- **🔧 GORM** - ORM框架
-- **🔐 JWT** - 身份认证
-
-### 前端技术栈
-- **⚡ Nuxt.js 3** - Vue.js全栈框架
-- **🎨 Vue 3** - 渐进式JavaScript框架
-- **📝 TypeScript** - 类型安全的JavaScript
-- **🎨 Tailwind CSS** - 实用优先的CSS框架
-- **🔧 Pinia** - 状态管理
-
----
-
-## 🔧 配置说明
-
-### 环境变量配置
+### 环境变量 (.env)
 
 ```bash
 # 数据库配置
-DB_HOST=localhost
-DB_PORT=5432
-DB_USER=postgres
-DB_PASSWORD=your_password
-DB_NAME=url_db
+DB_PATH=data/urldb.db
 
 # 服务器配置
 PORT=8080
-
-# 时区配置
 TIMEZONE=Asia/Shanghai
+
+# JWT 配置
+JWT_SECRET=your-secret-key
+
+# 上传配置
+MAX_UPLOAD_SIZE=50MB
 ```
 
-### 镜像构建
+### 系统配置
+
+系统启动后，可通过管理界面配置：
+- 自动处理待验证资源 (`auto_process_ready_resources`)
+- 转存任务相关设置
+- 平台账号管理
+
+## 架构设计
+
+### 后端结构
 
 ```
-docker build -t ctwj/urldb-frontend:1.0.7 --target frontend .
-docker build -t ctwj/urldb-backend:1.0.7 --target backend .
-docker push ctwj/urldb-frontend:1.0.7
-docker push ctwj/urldb-backend:1.0.7
+main.go                    # 应用入口
+├── db/                    # 数据库层
+│   ├── entity/           # GORM 模型
+│   ├── repo/             # 仓储模式 (RepositoryManager)
+│   ├── dto/              # 数据传输对象
+│   ├── converter/        # 实体转换器
+│   └── migrations/       # 数据库迁移
+├── handlers/             # HTTP 处理器
+├── middleware/           # 中间件 (认证、CORS、日志)
+├── scheduler/            # 定时任务调度器
+├── task/                 # 异步任务处理器
+└── utils/                # 工具函数
 ```
 
----
+### 核心架构模式
 
-## 📄 许可证
+1. **仓储模式** - 通过 `RepositoryManager` 统一管理所有数据库访问
+2. **任务队列系统** - 内存任务管理器，支持异步转存操作
+3. **调度器模式** - 单例全局调度器管理定时任务
+4. **多账号轮换** - 同平台多账号自动选择
 
-本项目采用 [GPL License](LICENSE) 许可证。
+### API 结构
 
----
+- **公开 API** (`/api/public/*`) - 基于令牌的批量操作
+- **认证** (`/api/auth/*`) - 登录、注册
+- **管理后台** (`/api/*`) - JWT 认证的 CRUD 操作
+  - 资源管理：`/api/resources/*`
+  - 分类管理：`/api/categories/*`
+  - 平台管理：`/api/pans/*`, `/api/cks/*`
+  - 标签管理：`/api/tags/*`
+  - 待处理资源：`/api/ready-resources/*`
+  - 任务管理：`/api/tasks/*`
+  - 系统配置：`/api/system/*`
 
-## 🙏 致谢
+## 工作流程
 
-感谢以下开源项目的支持：
+### 转存任务流程
 
-- [Gin](https://github.com/gin-gonic/gin) - Go Web框架
-- [Nuxt.js](https://nuxt.com/) - Vue.js全栈框架
-- [Tailwind CSS](https://tailwindcss.com/) - CSS框架
-- [GORM](https://gorm.io/) - Go ORM库
+1. 创建任务 → `task` 表和 `task_item` 表
+2. `TaskManager` 启动后台处理
+3. `TransferProcessor` 执行转存：
+   - 检查资源存在性
+   - 选择匹配账号
+   - 调用网盘 API
+   - 创建资源记录
+4. 实时更新进度和状态
 
----
+### 调度器工作流程
 
-## 📞 联系我们
+1. 读取 `auto_process_ready_resources` 配置
+2. 启动 `ReadyResourceScheduler`
+3. 定期检查待处理资源
+4. 自动执行转存操作
 
-- **项目地址**: [https://github.com/ctwj/urldb](https://github.com/ctwj/urldb)
-- **问题反馈**: [Issues](https://github.com/ctwj/urldb/issues)
-- **邮箱**: 510199617@qq.com
+## 版本管理
 
----
+```bash
+./scripts/version.sh show    # 显示当前版本
+./scripts/version.sh patch   # 1.3.0 -> 1.3.1
+./scripts/version.sh minor   # 1.3.0 -> 1.4.0
+./scripts/version.sh major   # 1.3.0 -> 2.0.0
+```
 
-<div align="center">
+## 生产构建
 
-**如果这个项目对您有帮助，请给我们一个 ⭐ Star！**
+```bash
+# 使用构建脚本
+./scripts/build.sh
+./scripts/build.sh build-linux
 
-Made with ❤️ by [老九]
+# 手动构建
+VERSION=$(cat VERSION)
+GIT_COMMIT=$(git rev-parse --short HEAD)
+CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo \
+  -ldflags "-X 'github.com/ctwj/urldb/utils.Version=${VERSION}' \
+            -X 'github.com/ctwj/urldb/utils.GitCommit=${GIT_COMMIT}'" \
+  -o main .
+```
 
-</div> 
+## 数据库
+
+- 使用 SQLite 数据库
+- 启动时自动运行迁移
+- 自动插入默认数据（分类、平台、系统配置、管理员用户）
+
+## 代码风格
+
+- **Go**：使用 `gofmt` 格式化
+- **TypeScript**：ESLint + Prettier
+- **提交信息**：`类型(范围): 简短描述`（feat、fix、docs、style、refactor、test、chore）
+
+## 许可证
+
+本项目采用 [GPL v3](LICENSE) 许可证。
